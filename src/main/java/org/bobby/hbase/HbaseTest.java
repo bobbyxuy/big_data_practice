@@ -16,18 +16,22 @@ public class HbaseTest {
         System.out.println("hello");
         Configuration configuration = HBaseConfiguration.create();
         // emr-header-1.cluster-285604
-        configuration.set("hbase.zookeeper.quorum", "emr-header-1.cluster-285604");
+        configuration.set("hbase.zookeeper.quorum", "127.0.0.1");
         configuration.set("hbase.zookeeper.property.clientPort", "2181");
 //        configuration.set("hbase.master", "127.0.0.1:60000");
         Connection conn = ConnectionFactory.createConnection(configuration);
+        System.out.println("start connection");
         Admin admin = conn.getAdmin();
+        System.out.println("connection succeed");
 
+        // TODO: name space 没有给
         TableName tableName = TableName.valueOf("xuyingzhe:student");
 
         // 建表
         if (admin.tableExists(tableName)) {
             System.out.println("Table already exists");
         } else {
+            System.out.println("Table creating");
             HTableDescriptor hTableDescriptor = new HTableDescriptor(tableName);
             hTableDescriptor.addFamily(new HColumnDescriptor(COL_FAMILY_INFO));
             hTableDescriptor.addFamily(new HColumnDescriptor(COL_FAMILY_SCORE));

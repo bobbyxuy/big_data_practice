@@ -1,0 +1,36 @@
+0: jdbc:hive2://localhost:10000> select sex, name, avg, total from (select t_user.sex as sex, t_movie.moviename as name, avg(t_rating.rate) as avg, count(t_user.userid) as total from t_user left join t_rating on (t_user.userid = t_rating.userid) left join t_movie on (t_rating.movieid = t_movie.movieid) where t_user.sex='M' group by t_movie.moviename, t_user.sex) t1 where total>50 order by avg desc limit 10;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hive/lib/log4j-slf4j-impl-2.6.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/hadoop-2.7.4/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Execution log at: /tmp/root/root_20220807074018_562a6a95-0871-4e67-87fa-04305562cd2e.log
+2022-08-07 07:40:21     Starting to launch local task to process map join;      maximum memory = 477626368
+2022-08-07 07:40:24     Dump the side-table for tag: 1 with group count: 6040 into file: file:/tmp/root/0e6e905a-7e29-4649-b15d-a2b2fb974781/hive_2022-08-07_07-40-18_037_3889051994702190752-2/-local-10009/HashTable-Stage-8/MapJoin-mapfile261--.hashtable
+2022-08-07 07:40:25     Uploaded 1 File to: file:/tmp/root/0e6e905a-7e29-4649-b15d-a2b2fb974781/hive_2022-08-07_07-40-18_037_3889051994702190752-2/-local-10009/HashTable-Stage-8/MapJoin-mapfile261--.hashtable (9036074 bytes)
+2022-08-07 07:40:25     End of local task; Time Taken: 3.986 sec.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hive/lib/log4j-slf4j-impl-2.6.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/hadoop-2.7.4/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Execution log at: /tmp/root/root_20220807074018_562a6a95-0871-4e67-87fa-04305562cd2e.log
+2022-08-07 07:40:35     Starting to launch local task to process map join;      maximum memory = 477626368
+2022-08-07 07:40:36     Dump the side-table for tag: 1 with group count: 3883 into file: file:/tmp/root/0e6e905a-7e29-4649-b15d-a2b2fb974781/hive_2022-08-07_07-40-18_037_3889051994702190752-2/-local-10007/HashTable-Stage-3/MapJoin-mapfile251--.hashtable
+2022-08-07 07:40:37     Uploaded 1 File to: file:/tmp/root/0e6e905a-7e29-4649-b15d-a2b2fb974781/hive_2022-08-07_07-40-18_037_3889051994702190752-2/-local-10007/HashTable-Stage-3/MapJoin-mapfile251--.hashtable (180159 bytes)
+2022-08-07 07:40:37     End of local task; Time Taken: 1.428 sec.
++------+----------------------------------------------------+--------------------+--------+
+| sex  |                        name                        |        avg         | total  |
++------+----------------------------------------------------+--------------------+--------+
+| M    | Sanjuro (1962)                                     | 4.639344262295082  | 61     |
+| M    | Godfather, The (1972)                              | 4.583333333333333  | 1740   |
+| M    | Seven Samurai (The Magnificent Seven) (Shichinin no samurai) (1954) | 4.576628352490421  | 522    |
+| M    | Shawshank Redemption, The (1994)                   | 4.560625           | 1600   |
+| M    | Raiders of the Lost Ark (1981)                     | 4.520597322348094  | 1942   |
+| M    | Usual Suspects, The (1995)                         | 4.518248175182482  | 1370   |
+| M    | Star Wars: Episode IV - A New Hope (1977)          | 4.495307167235495  | 2344   |
+| M    | Schindler's List (1993)                            | 4.49141503848431   | 1689   |
+| M    | Paths of Glory (1957)                              | 4.485148514851486  | 202    |
+| M    | Wrong Trousers, The (1993)                         | 4.478260869565218  | 644    |
++------+----------------------------------------------------+--------------------+--------+
